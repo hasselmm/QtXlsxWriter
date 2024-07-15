@@ -2455,7 +2455,7 @@ void WorksheetPrivate::validateDimension()
         return;
 
     int firstRow = cellTable.constBegin().key();
-    int lastRow = (cellTable.constEnd()-1).key();
+    int lastRow = (std::prev(cellTable.constEnd(), 1)).key();
     int firstColumn = -1;
     int lastColumn = -1;
 
@@ -2466,8 +2466,8 @@ void WorksheetPrivate::validateDimension()
         if (firstColumn == -1 || it.value().constBegin().key() < firstColumn)
             firstColumn = it.value().constBegin().key();
 
-        if (lastColumn == -1 || (it.value().constEnd()-1).key() > lastColumn)
-            lastColumn = (it.value().constEnd()-1).key();
+        if (lastColumn == -1 || (std::prev(it.value().constEnd(), 1)).key() > lastColumn)
+            lastColumn = (std::prev(it.value().constEnd(), 1)).key();
     }
 
     CellRange cr(firstRow, firstColumn, lastRow, lastColumn);
